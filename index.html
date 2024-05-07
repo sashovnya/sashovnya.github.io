@@ -1,17 +1,18 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Search</title>
+    <title>Google Search Scraper</title>
 </head>
 <body>
-    <h1>Vyhledávání na Google</h1>
-    <form action="/search" method="post">
-        <label for="keyword">Zadejte klíčové slovní spojení:</label><br>
-        <input type="text" id="keyword" name="keyword"><br><br>
-        <input type="submit" value="Hledat">
+    <form id="searchForm">
+        <input type="text" id="searchQuery" placeholder="Zadejte klíčové slovo nebo frázi">
+        <button type="submit">Vyhledat</button>
     </form>
+
+    <div id="results"></div>
+
+    <script src="scraper.js"></script>
 </body>
 </html>
