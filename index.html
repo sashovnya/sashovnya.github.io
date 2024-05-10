@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+/*<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,5 +16,21 @@
     <script async src="https://cse.google.com/cse.js?cx=c67a36f9833c44356">
     </script>
     <div class="gcse-search"></div>
+</body>
+</html>*/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Search Results</title>
+</head>
+<body>
+    <h1>Google Search Results</h1>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <label for="keyword">Enter Keyword:</label><br>
+        <input type="text" id="keyword" name="keyword"><br><br>
+        <input type="submit" value="Search">
+    </form>
 </body>
 </html>
