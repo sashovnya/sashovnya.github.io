@@ -28,5 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Uložení výsledků do souboru ve formátu JSON
     $filename = "google_results.json";
     file_put_contents($filename, json_encode($results));
+    
+    // Přesměrování na stránku s výsledky
+    header("Location: results.php");
+    exit();
 }
 ?>
