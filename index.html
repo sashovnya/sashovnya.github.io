@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Search Results</title>
+    <title>Google Search Scraper</title>
 </head>
 <body>
-    <h1>Google Search Results</h1>
-    <form method="post" action="search.php">
-        <label for="keyword">Enter Keyword:</label><br>
-        <input type="text" id="keyword" name="keyword"><br><br>
-        <input type="submit" value="Search">
-    </form>
+    <input type="text" id="searchQuery" placeholder="Zadejte klíčové slovo">
+    <button onclick="searchGoogle()">Vyhledat</button>
+    <div id="searchResults"></div>
+    <script src="script.js"></script>
 </body>
 </html>
-
