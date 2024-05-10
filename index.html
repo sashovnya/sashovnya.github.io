@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +7,15 @@
     <title>Google Search Scraper</title>
 </head>
 <body>
-    <input type="text" id="searchQuery" placeholder="Zadejte klíčové slovo">
-    <button onclick="searchGoogle()">Vyhledat</button>
-    <div id="searchResults"></div>
-    <script src="script.js"></script>
+    <form id="searchForm">
+        <input type="text" id="searchQuery" placeholder="Zadejte klíčové slovo nebo frázi">
+        <button type="submit">Vyhledat</button>
+    </form>
+
+    <div id="results"></div>
+
+    <script async src="https://cse.google.com/cse.js?cx=c67a36f9833c44356">
+    </script>
+    <div class="gcse-search"></div>
 </body>
 </html>
