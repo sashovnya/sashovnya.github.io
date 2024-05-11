@@ -4,10 +4,6 @@
     box-sizing: border-box;
     font-family: 'arial', sans-serif;
 }
-a:link {
-    text-decoration: none;
-    color: rgb(20, 20, 173);
-}
 section
 {
     position: relative;
