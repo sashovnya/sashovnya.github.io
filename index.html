@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Google Search</title>
+    <title>Google Search</title>
 </head>
 <body>
-  <h1>Google Search</h1>
-  <form>
-    <input type="text" id="search-input" placeholder="Enter a key phrase">
-    <button type="submit">Search</button>
-  </form>
+    <form action="/search" method="get">
+        <input type="text" name="q" placeholder="Enter a key phrase">
+        <input type="submit" value="Search">
+    </form>
 </body>
 </html>
