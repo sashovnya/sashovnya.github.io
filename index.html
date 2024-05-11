@@ -1,35 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Google Search</title>
-    <link rel="stylesheet" href="style.css"> 
-    <link rel="icon" type="image/google.png" href=""> 
-</head>
+<html>
 <body>
-    <section>
-        <div class = "main">
-          <img src="google-logo.png">
-          <div class="searchBx">
-            <input type="text" name="" class="query" value="">
-            <div class="icons">
-                <div><img src=""></div>
-                <div><img src=""></div>
-            </div>
-          </div>
-          <div class="button">
-            <button class="searchBtn">Google Search</button>
-          </div>
-        </div>
-    </section>
-      <script>
-        let query = document.querySelector('.query');
-        let searchBtn = document.querySelector('.searchBtn');
 
-        searchBtn.onclick = function(){
-          let url = 'https://www.google.cz/search?q='+query.value;
-          window.open(url, '_self');
-        }
-      </script>
+<h2>Search Form</h2>
+
+<form action="/action_page.php">
+  <label for="keyphrase">Key Phrase:</label><br>
+  <input type="text" id="keyphrase" name="keyphrase"><br>
+  <input type="submit" value="Submit">
+</form>
+
 </body>
 </html>
