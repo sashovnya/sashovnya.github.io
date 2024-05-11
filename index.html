@@ -1,12 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Google Search</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Search</title>
 </head>
 <body>
-    <form action="/search" method="get">
-        <input type="text" name="q" placeholder="Enter a key phrase">
-        <input type="submit" value="Search">
+    <form id="searchForm">
+        <input type="text" id="searchQuery" placeholder="Enter your search query">
+        <button type="submit">Search</button>
     </form>
+    <div id="searchResults"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#searchForm').submit(function(event){
+                event.preventDefault();
+                var query = $('#searchQuery').val();
+                if(query.trim() !== ''){
+                    var apiKey = 'AIzaSyCnJhN4o_Xr9bXcdY0IoT2iozImyd_yieQ';
+                    var cx = 'a407eec29da6843e2';
+                    var url = 'https://www.googleapis.com/customsearch/v1?key=' + apiKey + '&cx=' + cx + '&q=' + encodeURIComponent(query);
+
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        success: function(data){
+                            displaySearchResults(data);
+                        }
+                    });
+                }
+            });
+        });
+
+        function displaySearchResults(data){
+            $('#searchResults').empty();
+            if(data.items){
+                data.items.forEach(function(item){
+                    $('#searchResults').append('<div><a href="' + item.link + '">' + item.title + '</a><p>' + item.snippet + '</p></div>');
+                });
+            } else {
+                $('#searchResults').append('<p>No results found.</p>');
+            }
+        }
+    </script>
 </body>
 </html>
