@@ -3,8 +3,7 @@ from bs4 import BeautifulSoup
 import json
 
 # Define the search term and URL
-search_term = "example search"
-url = f"https://www.google.com/search?q={search_term}"
+url = f"https://www.google.com/search?q="
 
 # Send a GET request to the URL
 response = requests.get(url)
