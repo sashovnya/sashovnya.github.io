@@ -14,8 +14,8 @@
         <div class="searchBx">
           <input type="text" class="query" id="searchQuery">
           <div class="icons"> 
-            <div><img src=""></div> 
-            <div><img src=""></div> 
+            <div><img src="search.png"></div> 
+            <div><img src="mic.png"></div> 
           </div>
         </div> 
         <div class="button"> 
@@ -23,41 +23,40 @@
         </div> 
       </form>
       <div id="searchResults"></div>
-
     </div> 
   </section>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function(){
-            $('#searchForm').submit(function(event){
-                event.preventDefault();
-                var query = $('#searchQuery').val();
-                if(query.trim() !== ''){
-                    var apiKey = 'AIzaSyCnJhN4o_Xr9bXcdY0IoT2iozImyd_yieQ';
-                    var cx = 'a407eec29da6843e2';
-                    var url = 'https://www.googleapis.com/customsearch/v1?key=' + apiKey + '&cx=' + cx + '&q=' + encodeURIComponent(query);
+    $(document).ready(function(){
+        $('#searchForm').submit(function(event){
+            event.preventDefault();
+            var query = $('#searchQuery').val().trim();
+            if(query !== ''){
+                var apiKey = 'AIzaSyCnJhN4o_Xr9bXcdY0IoT2iozImyd_yieQ';
+                var cx = 'a407eec29da6843e2';
+                var url = 'https://www.googleapis.com/customsearch/v1?key=' + apiKey + '&cx=' + cx + '&q=' + encodeURIComponent(query);
 
-                    $.ajax({
-                        url: url,
-                        type: 'GET',
-                        success: function(data){
-                            displaySearchResults(data);
-                        }
-                    });
-                }
-            });
-        });
-
-        function displaySearchResults(data){
-            $('#searchResults').empty();
-            if(data.items){
-                data.items.forEach(function(item){
-                    $('#searchResults').append('<div><a href="' + item.link + '">' + item.title + '</a><p>' + item.snippet + '</p></div>');
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(data){
+                        displaySearchResults(data, query); 
+                    }
                 });
-            } else {
-                $('#searchResults').append('<p>No results found.</p>');
             }
+        });
+    });
+
+    function displaySearchResults(data, query){
+        $('#searchResults').empty();
+        if(data.items){
+            data.items.forEach(function(item){
+                $('#searchResults').append('<div><a href="' + item.link + '">' + item.title + '</a><p>' + item.snippet + '</p></div>');
+            });
+        } else {
+            $('#searchResults').append('<br>\n<p>Your search - '+ query + ' - did not match any documents.</p><br>\n<p>Suggestions:</p><br>\n<li>Make sure that all words are spelled correctly.</li><li>Try different keywords.</li><li>Try more general keywords.</li>');
         }
+    }
     </script>
 </body>
 </html>
