@@ -4,7 +4,13 @@
     box-sizing: border-box;
     font-family: 'arial', sans-serif;
 }
-
+a:link {
+    text-decoration: none;
+    color: rgb(20, 20, 173);
+}
+a:hover {
+    text-decoration: underline;
+}
 section
 {
     position: relative;
@@ -14,7 +20,6 @@ section
     justify-content: center;
     align-items: center;
 }
-
 section .main
 {
     width: 580px;
@@ -41,20 +46,31 @@ section .main .searchBx .query
     padding-left: 45px;
     padding-right: 60px;
 } 
+section .main .searchBx .query:hover
+{
+    border: 1px #ccc outset;
+    box-shadow: 0 0 10px #ccc;
+}
 section .main .searchBx .icons
 {
     position: absolute;
     top: 0;
-    width: 100%;
+    width: 105%;
     display: flex;
     justify-content: space-between;
-    padding: 12px 20px;
+    padding: 5px 20px;
     align-items: center;
     pointer-events: none;
 }
-section .main .searchBx .icons img 
+section .main .searchBx .icons img[src="search.png"] 
 {
-    max-width: 12%;
+    max-width: 45%;
+    opacity: 0.4;
+    border: 1px solid transparent;
+}
+section .main .searchBx .icons img[src="mic.png"]
+{
+    max-width: 70%;
 }
 .searchBtn
 {
