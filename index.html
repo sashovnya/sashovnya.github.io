@@ -3,15 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Search</title>
+    <title>Search</title>
+    <link rel="stylesheet" href="style.css">  
 </head>
 <body>
-    <form id="searchForm">
-        <input type="text" id="searchQuery" placeholder="Enter your search query">
-        <button type="submit">Search</button>
-    </form>
-    <div id="searchResults"></div>
+  <section> 
+    <div class = "main"> 
+      <img src="logo.png"> 
+      <form id="searchForm">
+        <div class="searchBx">
+          <input type="text" class="query" id="searchQuery">
+          <div class="icons"> 
+            <div><img src=""></div> 
+            <div><img src=""></div> 
+          </div>
+        </div> 
+        <div class="button"> 
+          <button type="submit" class="searchBtn">Search</button>
+        </div> 
+      </form>
+      <div id="searchResults"></div>
 
+    </div> 
+  </section>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function(){
