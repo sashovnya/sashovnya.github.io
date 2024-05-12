@@ -4,59 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
-    <link rel="stylesheet" href="style.css">  
+    <link rel="stylesheet" href="css/style.css">  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
   <section> 
     <div class = "main"> 
-      <img src="logo.png"> 
-      <form id="searchForm">
+      <img src="img/logo.png"> 
+      <form class="form">
         <div class="searchBx">
-          <input type="text" class="query" id="searchQuery">
+          <input type="text" class="query">
           <div class="icons"> 
-            <div><img src="search.png"></div> 
-            <div><img src="mic.png"></div> 
+            <div><img src="img/search.png"></div> 
+            <div><img src="img/mic.png"></div> 
           </div>
         </div> 
-        <div class="button"> 
-          <button type="submit" class="searchBtn">Search</button>
-        </div> 
+        <button type="submit" class="searchBtn">Search</button>
       </form>
-      <div id="searchResults"></div>
+      <div class="result"></div>
     </div> 
   </section>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-    $(document).ready(function(){
-        $('#searchForm').submit(function(event){
-            event.preventDefault();
-            var query = $('#searchQuery').val().trim();
-            if(query !== ''){
-                var apiKey = 'AIzaSyBRZaHdFKGjmlEnRCzA7anRiY-4On0J9ds';
-                var cx = 'd7d74d34bb2af48e8';
-                var url = 'https://www.googleapis.com/customsearch/v1?key=' + apiKey + '&cx=' + cx + '&q=' + encodeURIComponent(query);
-
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    success: function(data){
-                        displaySearchResults(data, query); 
-                    }
-                });
-            }
-        });
+  <script>
+    $(document).ready(() => {
+      $('.form').submit(event => {
+        event.preventDefault();
+        const q = $('.query').val().trim();
+        if (q !== '') {
+          const url = `https://www.googleapis.com/customsearch/v1?key=AIzaSyBRZaHdFKGjmlEnRCzA7anRiY-4On0J9ds&cx=d7d74d34bb2af48e8&q=${encodeURIComponent(q)}`;
+          $.ajax({
+            url,
+            type: 'GET',
+            success: data => displaySearchResults(data, q),
+          });
+        }
+      });
     });
 
-    function displaySearchResults(data, query){
-        $('#searchResults').empty();
-        if(data.items){
-            data.items.forEach(function(item){
-                $('#searchResults').append('<div><a href="' + item.link + '">' + item.title + '</a><p>' + item.snippet + '</p></div>');
-            });
-        } else {
-            $('#searchResults').append('<br>\n<p>Your search - '+ query + ' - did not match any documents.</p><br>\n<p>Suggestions:</p><br>\n<li>Make sure that all words are spelled correctly.</li><li>Try different keywords.</li><li>Try more general keywords.</li>');
-        }
+    function displaySearchResults(data, q) {
+      $('.result').empty();
+      if (data.items) {
+        data.items.forEach(item => {
+          $('.result').append(`
+            <div>
+              <a href="${item.link}">${item.title}</a>
+              <p>${item.snippet}</p>
+            </div>
+          `);
+        });
+      } else {
+        $('.result').append(`
+          <br>
+          <p>Your search - ${q} - did not match any documents.</p>
+          <br>
+          <p>Suggestions:</p>
+          <br>
+            <li>Make sure that all words are spelled correctly.</li>
+            <li>Try different keywords.</li>
+            <li>Try more general keywords.</li>
+        `);
+      }
     }
-    </script>
+  </script>
 </body>
 </html>
