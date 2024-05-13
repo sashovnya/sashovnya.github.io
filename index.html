@@ -25,20 +25,41 @@
     </div> 
   </section>
   <script>
-    $(document).ready(() => {
-      $('.form').submit(event => {
+$(document).ready(() => {
+    $('.form').submit(event => {
         event.preventDefault();
         const q = $('.query').val().trim();
         if (q !== '') {
-          const url = `https://www.googleapis.com/customsearch/v1?key=AIzaSyBRZaHdFKGjmlEnRCzA7anRiY-4On0J9ds&cx=d7d74d34bb2af48e8&q=${encodeURIComponent(q)}`;
-          $.ajax({
-            url,
-            type: 'GET',
-            success: data => displaySearchResults(data, q),
-          });
+            const url = `https://www.googleapis.com/customsearch/v1?key=AIzaSyBRZaHdFKGjmlEnRCzA7anRiY-4On0J9ds&cx=d7d74d34bb2af48e8&q=${encodeURIComponent(q)}`;
+            $.ajax({
+                url,
+                type: 'GET',
+                success: data => {
+                    displaySearchResults(data, q);
+                    // Volání PHP skriptu pro uložení výsledků
+                    saveSearchResults(data);
+                },
+            });
         }
-      });
     });
+});
+
+function saveSearchResults(data) {
+    // AJAX požadavek na PHP skript pro uložení výsledků
+    $.ajax({
+        url: 'save_results.php',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: response => {
+            console.log(response.message);
+            console.log('File name:', response.file_name);
+        },
+        error: err => {
+            console.error('Error occurred while saving results:', err);
+        }
+    });
+}
 
     function displaySearchResults(data, q) {
       $('.result').empty();
