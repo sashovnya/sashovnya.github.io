@@ -22,69 +22,64 @@
         <button type="submit" class="searchBtn">Search</button>
       </form>
       <div class="result"></div>
+      <button class="saveBtn">Save</button>
     </div> 
   </section>
   <script>
-$(document).ready(() => {
-    $('.form').submit(event => {
+    $(document).ready(() => {
+      let search = [];
+      $('.form').submit(event => {
         event.preventDefault();
         const q = $('.query').val().trim();
         if (q !== '') {
-            const url = `https://www.googleapis.com/customsearch/v1?key=AIzaSyBRZaHdFKGjmlEnRCzA7anRiY-4On0J9ds&cx=d7d74d34bb2af48e8&q=${encodeURIComponent(q)}`;
-            $.ajax({
-                url,
-                type: 'GET',
-                success: data => {
-                    displaySearchResults(data, q);
-                    // Volání PHP skriptu pro uložení výsledků
-                    saveSearchResults(data);
-                },
-            });
+          const url = `https://www.googleapis.com/customsearch/v1?key=AIzaSyBRZaHdFKGjmlEnRCzA7anRiY-4On0J9ds&cx=d7d74d34bb2af48e8&q=${encodeURIComponent(q)}`;
+          $.ajax({
+            url,
+            type: 'GET',
+            success: data => {
+              search = data.items || []; 
+              displaySearchResults(search, q);
+            }
+          });
         }
-    });
-});
+      });
 
-function saveSearchResults(data) {
-    // AJAX požadavek na PHP skript pro uložení výsledků
-    $.ajax({
-        url: 'save_results.php',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        success: response => {
-            console.log(response.message);
-            console.log('File name:', response.file_name);
-        },
-        error: err => {
-            console.error('Error occurred while saving results:', err);
-        }
-    });
-}
+      document.querySelector('.saveBtn').addEventListener('click', function() {
+        var json = JSON.stringify(search);
+        var data = 'data:application/json,' + encodeURIComponent(json);
+        var a = document.createElement('a');
+        a.href = data;
+        a.download = 'save.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      });
 
-    function displaySearchResults(data, q) {
-      $('.result').empty();
-      if (data.items) {
-        data.items.forEach(item => {
+      function displaySearchResults(data, q) {
+        $('.result').empty();
+        if (data.length > 0) {
+          data.forEach(item => {
+            $('.result').append(`
+              <div>
+                <a href="${item.link}">${item.title}</a>
+                <p>${item.snippet}</p>
+              </div>
+            `);
+          });
+        } else {
           $('.result').append(`
-            <div>
-              <a href="${item.link}">${item.title}</a>
-              <p>${item.snippet}</p>
-            </div>
+            <br>
+            <p>Your search - ${q} - did not match any documents.</p>
+            <br>
+            <p>Suggestions:</p>
+            <br>
+              <li>Make sure that all words are spelled correctly.</li>
+              <li>Try different keywords.</li>
+              <li>Try more general keywords.</li>
           `);
-        });
-      } else {
-        $('.result').append(`
-          <br>
-          <p>Your search - ${q} - did not match any documents.</p>
-          <br>
-          <p>Suggestions:</p>
-          <br>
-            <li>Make sure that all words are spelled correctly.</li>
-            <li>Try different keywords.</li>
-            <li>Try more general keywords.</li>
-        `);
+        }
       }
-    }
+    });
   </script>
 </body>
 </html>
